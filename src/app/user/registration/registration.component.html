@@ -1,0 +1,91 @@
+<div class="mb-3">
+  <h2 class="text-success">Sign up</h2>
+  <div>
+    Already have an Account?
+    <a routerLink="/signin" class="text-decoration-none fw-medium d-inline-block">Sign In</a>
+  </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <!-- Full Name -->
+  <div class="mb-3">
+    <input
+      type="text"
+      formControlName="fullName"
+      placeholder="Full Name"
+      class="form-control bg-body-secondary"
+    />
+    <!-- using method on component -->
+    <div class="text-danger mt-1" *ngIf="hasDisplayError('fullName') && form.get('fullName')?.hasError('required')">
+      Full Name is required
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div class="mb-3">
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="Email"
+      class="form-control bg-body-secondary"
+    />
+    <div class="text-danger mt-1" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">
+      Email is required
+    </div>
+    <div class="text-danger mt-1" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')">
+      Enter a valid email
+    </div>
+  </div>
+
+  <!-- Password -->
+ <div class="mb-3">
+  <input
+    type="text"
+    formControlName="password"
+    placeholder="Password"
+    class="form-control bg-body-secondary"
+  />
+
+  <div class="text-danger mt-1" *ngIf="hasDisplayError('password')">
+
+    <ng-container [ngSwitch]="form.controls['password'].errors | firstKey">
+      
+      <div *ngSwitchCase="'required'">
+        Password is required
+      </div>
+
+      <div *ngSwitchCase="'minlength'">
+        Password must be 8+ characters
+      </div>
+
+      <div *ngSwitchCase="'pattern'">
+        Include uppercase, lowercase, number & special character
+      </div>
+
+    </ng-container>
+
+  </div>
+</div>
+
+
+  <!-- Confirm Password -->
+  <div class="mb-3">
+    <input
+      type="text"
+      formControlName="confirmPassword"
+      placeholder="Confirm Password"
+      class="form-control bg-body-secondary"
+    />
+   <div class="text-danger mt-1" *ngIf="form.errors && form.errors['passwordMismatch']">
+  Passwords do not match
+</div>
+
+  </div>
+
+  <!-- Submit Button -->
+  <div class="mt-4">
+    <button type="submit" class="btn btn-success w-100 rounded-3">Register</button>
+  </div>
+
+</form>

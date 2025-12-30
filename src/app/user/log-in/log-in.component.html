@@ -1,0 +1,50 @@
+<div class="">
+    <h2 class="mb-2 text-success">
+        Sign In
+    </h2>
+    <div class="mb-3">
+        Don't Have an Account?
+        <a routerLink="/signup" class="text-decoration-none fw-medium">Sign Up</a>
+    </div>
+    
+</div>
+<form [formGroup]="form" (ngSubmit)="OnSubmit()">
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control bg-body-secondary"
+      formControlName="email"
+      placeholder="Email"
+    />
+    <div class="text-danger mt-1" *ngIf="hasDisplayError('email')">
+      <div
+        class="text-danger mt-1"
+        *ngIf="form.get('email')?.hasError('required')"
+      >
+        Please Enter Your Email
+      </div>
+      <div
+        class="text-danger mt-1"
+        *ngIf="form.get('email')?.hasError('email')"
+      >
+        Email invalid
+      </div>
+    </div>
+    <div class="mt-4">
+      <input
+        type="text"
+        class="form-control bg-body-secondary"
+        formControlName="password"
+        placeholder="password"
+      />
+      <div class="text-danger mt-1" *ngIf="hasDisplayError('password')">
+        <div *ngIf="form.get('password')?.hasError('required')">
+          Please Enter Your Email Password
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button type="submit" class="btn btn-success w-100 mt-4">submit</button>
+  </div>
+</form>

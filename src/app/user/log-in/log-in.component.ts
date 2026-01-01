@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-log-in',
+  standalone: true,
   imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, NgIf, RouterLink],
   templateUrl: './log-in.component.html',
   styleUrl: './log-in.component.css'
@@ -26,6 +27,9 @@ export class LogInComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
+
+    if(this.serivce.isLoggedIn())
+      this.router.navigateByUrl('/dashboard')
   }
 
   OnSubmit() {
@@ -34,7 +38,7 @@ export class LogInComponent implements OnInit {
       this.serivce.signIn(this.form.value).subscribe({
         next: (res: any) => {
           console.log('login',res)
-          localStorage.setItem('token', res.token)
+          this.serivce.saveToken(res.token);
           this.router.navigateByUrl('/dashboard');
         },
         error:(err:any)=>{

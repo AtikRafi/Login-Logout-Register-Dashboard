@@ -4,7 +4,7 @@ import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { FirstKeyPipe } from '../../Shared/pipes/first-key.pipe';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -19,7 +19,8 @@ export class RegistrationComponent implements OnInit {
   isSubmit : boolean =false;
   constructor(private fb: FormBuilder,
     private service : AuthService,
-    private toastr : ToastrService
+    private toastr : ToastrService,
+    private router : Router
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +34,9 @@ export class RegistrationComponent implements OnInit {
       ]],
       confirmPassword: ['', Validators.required]
     }, { validators: this.passwordMatchValidator });
+
+    if(this.service.isLoggedIn())
+      this.router.navigateByUrl('/dashboard')
   }
 
   //password mismatch

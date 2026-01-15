@@ -10,43 +10,59 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { claimReq } from './Shared/utils/claimReq-utils';
 import { CustomerComponent } from './AuthorizieDemo/customer/customer.component';
+import { StoreProductsComponent } from './AuthorizieDemo/store-owner/store-products/store-products.component';
 
 export const routes: Routes = [
-    {
-        path: '', redirectTo: '/signin', pathMatch: 'full'
-    },
-    {
-        path: '', component: UserComponent,
-        children: [
-            { path: 'signup', component: RegistrationComponent },
-            { path: 'signin', component: LogInComponent },
-        ]
-    }, 
-    {
-        path: '', component: MainLayoutComponent, canActivate:[authGuard],
-        canActivateChild:[authGuard],
-        children: [
-            {
-                path: "dashboard", component: DashboardComponent
-            },
-            {
-                path: "admin-only", component: AdminOnlyComponent,
-                data: { claimReq: claimReq.adminOnly }
-            },
-            {
-                path: "Store-owner", component: StoreOwnerComponent,
-                data: { claimReq: claimReq.storeOwner }
-            },
-            {
-                path: "customer", component: CustomerComponent,
-                data: { claimReq: claimReq.customer }
-            },
-            {
-                path: "forbidden", component: ForbiddenComponent,
-                
-            }
-        ]
-    }
-
-
+  {
+    path: '',
+    redirectTo: '/signin',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    component: UserComponent,
+    children: [
+      { path: 'signup', component: RegistrationComponent },
+      { path: 'signin', component: LogInComponent },
+    ],
+  },
+  {
+    path: '',
+    component: MainLayoutComponent,
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
+      {
+        path: 'admin-only',
+        component: AdminOnlyComponent,
+        data: { claimReq: claimReq.adminOnly },
+      },
+      {
+        path: 'Store-owner',
+        component: StoreOwnerComponent,
+        data: { claimReq: claimReq.storeOwner },
+      },
+      {
+        path: 'customer',
+        component: CustomerComponent,
+        data: { claimReq: claimReq.customer },
+      },
+      {
+        path: 'forbidden',
+        component: ForbiddenComponent,
+      },
+      {
+        path: 'owner/stores',
+        component: StoreOwnerComponent,
+      },
+      {
+        path: 'owner/stores/:vendorId/products',
+        component: StoreProductsComponent,
+      },
+    ],
+  },
 ];

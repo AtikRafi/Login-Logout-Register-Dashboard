@@ -1,1 +1,15 @@
-<p>store-owner works!</p>
+<div class="store-list">
+  <a
+    class="store-card"
+    *ngFor="let vendor of vendors"
+    [routerLink]="['/owner/stores', vendor.id, 'products']"
+  >
+    <img
+      *ngIf="vendor.vendorLogoUrl"
+      [src]="vendor.vendorLogoUrl"
+      alt="logo"
+    />
+    <h3>{{ vendor.vendorName }}</h3>
+    <p>{{ vendor.vendorSlug }}</p>
+  </a>
+</div>
